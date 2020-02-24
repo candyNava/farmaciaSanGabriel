@@ -1,0 +1,21 @@
+create procedure Ingresa_Cliente
+@idCliente int,
+@nombre varchar(50),
+@apellidos varchar(50),
+@direccion varchar(70),
+@telefono varchar(50),
+@estatus varchar(50)
+AS
+BEGIN
+IF NOT EXISTS(select * from cliente where idCliente=@idCliente)
+INSERT INTO cliente
+Values (@idCliente, @nombre, @apellidos, @direccion, @telefono, @estatus )
+ELSE 
+ update cliente SET 
+nombre = @nombre,
+apellidos = @apellidos, 
+direccion=@direccion, 
+telefono = @telefono,
+estatus = @estatus
+where idCliente= @idCliente
+END;
